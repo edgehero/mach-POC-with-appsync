@@ -1,0 +1,26 @@
+mach_composer:
+  version: 1.0.0
+global:
+  environment: test
+  cloud: aws
+  terraform_config:
+    aws_remote_state:
+      bucket: mach-test-rob
+      key_prefix: test-state
+      region: eu-west-1
+    providers:
+      aws: "3.37.0"
+sites:
+  - identifier: test-rob
+    aws:
+      account_id: 844034505315
+      region: eu-west-1
+    components:
+      - name: appsync-test-rob
+
+components:
+  - name: appsync-test-rob
+    source: git::https://github.com/edgehero/test-rob-appsync.git//terraform
+    version: c7a4097
+    integrations:
+      - aws
